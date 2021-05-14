@@ -1,11 +1,11 @@
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
-import { getVents } from "../config/vents";
+import CreatePost from "../components/CreatePost";
 
 export default function Home() {
-  useEffect(() => {
-    getVents();
-  }, []);
-
-  return <div>Hello</div>;
+  return (
+    <div>
+      <CreatePost />
+    </div>
+  );
 }

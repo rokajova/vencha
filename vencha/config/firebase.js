@@ -1,7 +1,6 @@
-import firebase from "firebase/app";
-import "firebase/firestore";
+import firebase from "firebase";
 
-const config = {
+const firebaseConfig = {
   apiKey: "AIzaSyAwHg0AZLPBIY5gKRAmQd9Bs3cBVdH_vr8",
   authDomain: "vencha-b1fb9.firebaseapp.com",
   projectId: "vencha-b1fb9",
@@ -11,10 +10,13 @@ const config = {
   measurementId: "G-0GG3DVG32T",
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(config);
+try {
+  firebase.initializeApp(firebaseConfig);
+} catch (err) {
+  if (!/already exists/.test(err.message)) {
+    console.error("Firebase initialization error", err.stack);
+  }
 }
 
-const firestore = firebase.firestore();
-
-export { firestore };
+const fire = firebase;
+export default fire;
