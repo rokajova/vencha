@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import fire from "../config/firebase";
+import firebase from "../config/firebase";
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [notification, setNotification] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    fire.firestore().collection("blog").add({
+    firebase.firestore().collection("blog").add({
       title: title,
       content: content,
     });
@@ -17,6 +18,7 @@ const CreatePost = () => {
       setNotification("");
     }, 2000);
   };
+
   return (
     <div>
       <h2>Add Blog</h2>
