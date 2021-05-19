@@ -31,7 +31,7 @@ const Main = () => {
   return (
     <div>
       {posts.map((post) => (
-        <div>
+        <div style={{ border: "1px solid black", margin: "5px" }}>
           {post.title},{post.content}
         </div>
       ))}
