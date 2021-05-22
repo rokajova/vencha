@@ -4,10 +4,5 @@ import CreatePost from "../components/CreatePost";
 import Main from "../components/Main";
 
 export default function Home() {
-  return (
-    <div>
-      <CreatePost />
-      <Main />
-    </div>
-  );
+  return <div>Yo</div>;
 }
