@@ -1,42 +1,42 @@
-// This component represents the index page for the site. You
-// can read more about Pages in the Next.js docs at:
-// https://nextjs.org/docs/basic-features/pages
+import { useEffect, useState } from "react";
+import firebase from "../config/firebase";
 
-import { getPosts } from "../config/firebase";
-
-const HomePage = ({ posts }) => (
-  <div>
-    <h1>Blog Posts</h1>
-    {posts.map((post) => (
-      <article key={post.slug}>
-        <img src={post.coverImage} alt={post.coverImageAlt} />
-        <div>
-          <h2>{post.title}</h2>
-          <span>{getFormattedDate(post.dateCreated)}</span>
-          <p
-            dangerouslySetInnerHTML={{
-              __html: `${post.content.substring(0, 200)}...`,
-            }}
-          ></p>
+export default function Main({ posts }) {
+  return (
+    <div>
+      <h1>All Posts</h1>
+      {posts.map((post, index) => (
+        <div key={index}>
+          {post.title}, {post.content}
         </div>
-      </article>
-    ))}
-  </div>
-);
+      ))}
+    </div>
+  );
+}
 
-// This is for fetching data every time the page is visited. We do this
-// so that we don't have to redploy the site every time we add a blog post.
-// You can read more about this in the Next.js docs at:
-// https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
+export const getStaticProps = async () => {
+  let posts = [];
+  try {
+    // await the promise
+    const querySnapshot = await firebase.firestore().collection("blog").get();
 
-export async function getServerSideProps() {
-  const posts = await getPosts();
+    // "then" part after the await
+    querySnapshot.forEach(function (doc) {
+      posts.push({
+        content: doc.data().content,
+        title: doc.data().title,
+      });
+    });
+    console.log(posts);
+  } catch (error) {
+    // catch part using try/catch
+    console.log("Error getting documents: ", error);
+    // return something else here, or an empty props, or throw an exception or whatever
+  }
 
   return {
     props: {
       posts,
     },
   };
-}
-
-export default HomePage;
+};
