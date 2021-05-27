@@ -6,7 +6,7 @@ export default function Main({ posts }) {
     <div>
       <h1>All Posts</h1>
       {posts.map((post, index) => (
-        <div key={index}>
+        <div style={{ border: "1px solid black", margin: "10px" }} key={index}>
           {post.title}, {post.content}
         </div>
       ))}
