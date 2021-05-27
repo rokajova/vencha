@@ -8,6 +8,7 @@ export default function Main({ posts }) {
       {posts.map((post, index) => (
         <div style={{ border: "1px solid black", margin: "10px" }} key={index}>
           {post.title}, {post.content}
+          <a href={`/posts/${posts.slug}`}>Continue Reading</a>
         </div>
       ))}
     </div>
