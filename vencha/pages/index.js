@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import firebase from "../config/firebase";
 import Head from "next/head";
+import CreatePost from "../components/CreatePost";
 
 export default function Main() {
   return (
@@ -9,6 +9,7 @@ export default function Main() {
         <title>Vencha</title>
       </Head>
       <h1>Blog</h1>
+      <CreatePost />
     </div>
   );
 }
