@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import firebase from "../config/firebase";
 import CreatePost from "../components/CreatePost";
+import Link from "next/link";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -20,8 +21,6 @@ const Home = () => {
       });
   }, []);
 
-  console.log(blogs);
-
   return (
     <div>
       <Head>
@@ -30,15 +29,12 @@ const Home = () => {
       <h1>All posts are here: </h1>
       <ul>
         {blogs.map((blog) => (
-          <li
-            style={{ border: " 1px solid black ", margin: "3px" }}
-            key={blog.id}
-          >
-            <h2>{blog.title}</h2>
-            <h3>{blog.content}</h3>
-            <span>{blog.id}</span>
+          <li key={blog.id}>
+            <Link href="/vent/[id]" as={"/vent/" + blog.id}>
+              <a itemProp="hello">{blog.title}</a>
+            </Link>
           </li>
-        ))}{" "}
+        ))}
       </ul>
       <CreatePost />
     </div>
