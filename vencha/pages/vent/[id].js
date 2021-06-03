@@ -1,35 +1,34 @@
-// blog/[id].js
-import { useEffect, useState } from "react";
 import firebase from "../../config/firebase";
 import Link from "next/link";
-const Blog = (props) => {
-  const [blog, setBlog] = useState(null);
-  useEffect(() => {
-    firebase
-      .firestore()
-      .collection("Vents")
-      .doc(props.id)
-      .get()
-      .then((result) => {
-        setBlog(result.data());
-      });
-  }, []);
-  if (!blog) {
-    return <h2>Loading...</h2>;
-  }
+
+const Vent = (props) => {
   return (
     <div>
-      <h2>{blog.title}</h2>
-      <p>{blog.content}</p>
+      <h2>{props.title}</h2>
+      <p>{props.content}</p>
       <Link href="/">
         <a>Back</a>
       </Link>
     </div>
   );
 };
-Blog.getInitialProps = ({ query }) => {
+export const getServerSideProps = async ({ query }) => {
+  const content = {};
+  await firebase
+    .firestore()
+    .collection("Vents")
+    .doc(query.id)
+    .get()
+    .then((result) => {
+      content["title"] = result.data().title;
+      content["content"] = result.data().content;
+    });
   return {
-    id: query.id,
+    props: {
+      title: content.title,
+      content: content.content,
+    },
   };
 };
-export default Blog;
+
+export default Vent;
