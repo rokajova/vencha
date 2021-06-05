@@ -42,6 +42,7 @@ const CreatePost = () => {
             onChange={({ target }) => setTitle(target.value)}
           />
         </div>
+
         <div>
           Content
           <br />
@@ -50,6 +51,9 @@ const CreatePost = () => {
             onChange={({ target }) => setContent(target.value)}
           />
         </div>
+
+        <input type="file" />
+
         <button type="submit">Save</button>
       </form>
     </div>
