@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import firebase from "../config/firebase";
+import MediaUpload from "./MediaUpload";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
@@ -52,7 +53,7 @@ const CreatePost = () => {
           />
         </div>
 
-        <input type="file" />
+        <MediaUpload />
 
         <button type="submit">Save</button>
       </form>
