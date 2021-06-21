@@ -54,8 +54,6 @@ const CreatePost = () => {
         </div>
 
         <MediaUpload />
-
-        <button type="submit">Save</button>
       </form>
     </div>
   );
