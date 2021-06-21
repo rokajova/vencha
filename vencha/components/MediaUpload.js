@@ -1,40 +1,53 @@
 import React, { useState } from "react";
 import firebase from "../config/firebase";
+import { v4 as uuidv4 } from "uuid";
 
 const MediaUpload = () => {
-  const [image, setImage] = useState(null);
-  const [url, setUrl] = useState("");
-  const [progress, setProgress] = useState(0);
-  const [error, setError] = useState("");
-
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const fileType = file["type"];
-      const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
-
-      if (validImageTypes.includes(fileType)) {
-        setError("");
-        setImage("file");
-      } else {
-        setError("Please select an image to upload");
-      }
-    }
+  const uploadImageCallback = (e) => {
+    return new Promise(async (resolve, reject) => {
+      const file = e.target.files[0];
+      const fileName = uuidv4();
+      firebase
+        .firestore()
+        .ref()
+        .child("Vents/" + fileName)
+        .put(file)
+        .then(async (snapshot) => {
+          const downLoadURL = await firebase
+            .firestore()
+            .ref()
+            .child("Vents/" + fileName)
+            .getDownloadURL();
+          const extension = await firebase
+            .firestore()
+            .ref()
+            .child("Vents/" + fileName)
+            .getMetadata();
+          resolve({
+            success: true,
+            data: { link: downLoadURL, fileExtension: extension.contentType },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
   };
 
   return (
     <div>
-      {" "}
-      <div>
-        <input onChange={handleChange} type="file" />
-        <button>Upload</button>
-      </div>
-      <div style={{ height: "100px" }}>
-        {progress > 0 ? <progress value={progress} max="100" /> : ""}
-        <p style={{ color: "red" }}>{error}</p>
-      </div>
-      {url ? <img src={url} alt="logo" /> : ""}
+      <input
+        type="file"
+        accept="image/*,video/*"
+        onChange={async (e) => {
+          const uploadState = await uploadImageCallback(e);
+          if (uploadState.success) {
+            console.log("Feature file uploaded!");
+          } else {
+            console.log("Feature image upload failed");
+          }
+        }}
+      />
     </div>
   );
 };
