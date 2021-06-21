@@ -1,5 +1,9 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
 import "firebase/firestore";
+import "firebase/storage";
+import "firebase/analytics";
+import "firebase/performance";
+import "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAwHg0AZLPBIY5gKRAmQd9Bs3cBVdH_vr8",
@@ -13,7 +17,7 @@ const firebaseConfig = {
 
 try {
   firebase.initializeApp(firebaseConfig);
-  firebase.firestore();
+  console.log("Firebase successfully initialized.");
 } catch (err) {
   if (!/already exists/.test(err.message)) {
     console.error("Firebase initialization error", err.stack);

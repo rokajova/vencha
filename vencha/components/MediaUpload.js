@@ -1,53 +1,37 @@
-import React, { useState } from "react";
-import firebase from "../config/firebase";
-import { v4 as uuidv4 } from "uuid";
+import firebase from "firebase/app";
+import "firebase/storage";
+import { useRef, useState } from "react";
 
 const MediaUpload = () => {
-  const uploadImageCallback = (e) => {
-    return new Promise(async (resolve, reject) => {
-      const file = e.target.files[0];
-      const fileName = uuidv4();
-      firebase
-        .firestore()
-        .ref()
-        .child("Vents/" + fileName)
-        .put(file)
-        .then(async (snapshot) => {
-          const downLoadURL = await firebase
-            .firestore()
-            .ref()
-            .child("Vents/" + fileName)
-            .getDownloadURL();
-          const extension = await firebase
-            .firestore()
-            .ref()
-            .child("Vents/" + fileName)
-            .getMetadata();
-          resolve({
-            success: true,
-            data: { link: downLoadURL, fileExtension: extension.contentType },
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    });
-  };
+  const inputEl = useRef(null);
+  const [value, setValue] = useState(0);
+
+  function uploadFile() {
+    var file = inputEl.current.files[0];
+    var storageRef = firebase.storage().ref("Vents/" + file.name);
+    var task = storageRef.put(file);
+
+    task.on(
+      "state_change",
+
+      function progress(snapshot) {
+        setValue((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      },
+
+      function error(err) {
+        alert(error);
+      },
+
+      function complete() {
+        alert("Upload to sotrage complete!");
+      }
+    );
+  }
 
   return (
     <div>
-      <input
-        type="file"
-        accept="image/*,video/*"
-        onChange={async (e) => {
-          const uploadState = await uploadImageCallback(e);
-          if (uploadState.success) {
-            console.log("Feature file uploaded!");
-          } else {
-            console.log("Feature image upload failed");
-          }
-        }}
-      />
+      <progress value={value} max="100"></progress>;
+      <input type="file" onChange={uploadFile} ref={inputEl} />
     </div>
   );
 };

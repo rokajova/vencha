@@ -33,7 +33,7 @@ const CreatePost = () => {
     <div>
       <h2>Add Blog</h2>
       {notification}
-      <form onSubmit={handleSubmit}>
+      <form>
         <div>
           Title
           <br />
