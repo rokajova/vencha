@@ -51,6 +51,7 @@ const CreatePost = () => {
             value={content}
             onChange={({ target }) => setContent(target.value)}
           />
+          <button onClick={handleSubmit}>Post!</button>
         </div>
 
         <MediaUpload />
