@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import firebase from "../config/firebase";
-import CreatePost from "../components/CreatePost";
 import Link from "next/link";
 
 const Home = () => {
@@ -36,7 +35,6 @@ const Home = () => {
           </li>
         ))}
       </ul>
-      <CreatePost />
     </div>
   );
 };
