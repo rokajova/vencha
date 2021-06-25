@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import firebase from "../config/firebase";
+import "firebase/storage";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [notification, setNotification] = useState("");
+  const [value, setValue] = useState(0);
+  const inputEl = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,6 +31,28 @@ const CreatePost = () => {
     }, 2000);
   };
 
+  function uploadFile() {
+    var file = inputEl.current.files[0];
+    var storageRef = firebase.storage().ref("Vents/" + file.name);
+    var task = storageRef.put(file);
+
+    task.on(
+      "state_change",
+
+      function progress(snapshot) {
+        setValue((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      },
+
+      function error(err) {
+        alert(error);
+      },
+
+      function complete() {
+        alert("Upload to sotrage complete!");
+      }
+    );
+  }
+
   return (
     <div>
       <h2>Add Blog</h2>
@@ -50,6 +75,8 @@ const CreatePost = () => {
             value={content}
             onChange={({ target }) => setContent(target.value)}
           />
+          <progress value={value} max="100"></progress>;
+          <input type="file" onChange={uploadFile} ref={inputEl} />
           <button onClick={handleSubmit}>Post!</button>
         </div>
       </form>
