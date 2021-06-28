@@ -25,6 +25,7 @@ const Home = () => {
       <Head>
         <title>Vents</title>
       </Head>
+      <Link href="/create">Create</Link>
       <h1>All posts are here: </h1>
       <ul>
         {blogs.map((blog) => (
