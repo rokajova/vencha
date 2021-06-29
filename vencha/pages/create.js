@@ -1,23 +1,25 @@
 import React, { useState, useRef } from "react";
 import firebase from "../config/firebase";
 import "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [createDate, setCreateDate] = useState(null);
   const [featureImage, setFeatureImage] = useState("");
-  const [commentCount, setCommentCount] = useState(0);
 
   const inputEl = useRef(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    firebase
-      .firestore()
-      .collection("Vents")
-      .add({ title: title, content: content });
+    firebase.firestore().collection("Vents").add({
+      title: title,
+      content: content,
+      createDate: new Date(),
+      commentCount: 0,
+      featureImage: featureImage,
+    });
 
     console.log({
       title: title,
@@ -30,20 +32,18 @@ const CreatePost = () => {
 
   function uploadFile() {
     var file = inputEl.current.files[0];
-    var storageRef = firebase.storage().ref("Vents/" + file.name);
-    var task = storageRef.put(file);
-
-    task.on(
-      "state_change",
-
-      function error(err) {
-        alert(error);
-      },
-
-      function complete() {
-        alert("Upload to storage complete!" + file);
-      }
-    );
+    var fileName = uuidv4();
+    var storageRef = firebase
+      .storage()
+      .ref("Vents/" + fileName)
+      .put(file)
+      .then(async (snapshot) => {
+        const downloadURL = await storageRef
+          .ref("Vents/" + fileName)
+          .getDownloadURL();
+        setFeatureImage(downloadURL);
+        console.log(featureImage);
+      });
   }
 
   return (
