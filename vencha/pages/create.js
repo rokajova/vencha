@@ -5,8 +5,10 @@ import "firebase/storage";
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [notification, setNotification] = useState("");
-  const [value, setValue] = useState(0);
+  const [createDate, setCreateDate] = useState(null);
+  const [featureImage, setFeatureImage] = useState("");
+  const [commentCount, setCommentCount] = useState(0);
+
   const inputEl = useRef(null);
 
   const handleSubmit = (event) => {
@@ -24,11 +26,6 @@ const CreatePost = () => {
 
     setTitle("");
     setContent("");
-    setNotification("Vent created!");
-
-    setTimeout(() => {
-      setNotification("");
-    }, 2000);
   };
 
   function uploadFile() {
@@ -39,16 +36,12 @@ const CreatePost = () => {
     task.on(
       "state_change",
 
-      function progress(snapshot) {
-        setValue((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-      },
-
       function error(err) {
         alert(error);
       },
 
       function complete() {
-        alert("Upload to sotrage complete!");
+        alert("Upload to storage complete!" + file);
       }
     );
   }
@@ -56,7 +49,6 @@ const CreatePost = () => {
   return (
     <div>
       <h2>Add Blog</h2>
-      {notification}
       <form>
         <div>
           Title
@@ -75,7 +67,6 @@ const CreatePost = () => {
             value={content}
             onChange={({ target }) => setContent(target.value)}
           />
-          <progress value={value} max="100"></progress>;
           <input type="file" onChange={uploadFile} ref={inputEl} />
           <button onClick={handleSubmit}>Post!</button>
         </div>
