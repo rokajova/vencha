@@ -2,8 +2,10 @@ import React, { useState, useRef } from "react";
 import firebase from "../config/firebase";
 import "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import { async } from "regenerator-runtime";
 
 const CreatePost = () => {
+  const [isImageWarningOpen, setIsImageWarningOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [featureImage, setFeatureImage] = useState("");
@@ -30,20 +32,39 @@ const CreatePost = () => {
     setContent("");
   };
 
+  // function uploadFile() {
+  //   var file = inputEl.current.files[0];
+  //   var fileName = uuidv4();
+  //   var storageRef = firebase
+  //     .storage()
+  //     .ref("Vents/" + fileName)
+  //     .put(file)
+  //     .then((snapshot) => {
+  //       var downloadURL = firebase
+  //         .storage()
+  //         .ref("Vents/" + fileName)
+  //         .getDownloadURL();
+  //       setFeatureImage(downloadURL);
+  //     });
+  // }
+
   function uploadFile() {
-    var file = inputEl.current.files[0];
-    var fileName = uuidv4();
-    var storageRef = firebase
-      .storage()
-      .ref("Vents/" + fileName)
-      .put(file)
-      .then(async (snapshot) => {
-        const downloadURL = await storageRef
-          .ref("Vents/" + fileName)
-          .getDownloadURL();
-        setFeatureImage(downloadURL);
-        console.log(featureImage);
-      });
+    return new Promise(async (resolve, reject) => {
+      var file = inputEl.current.files[0];
+      var fileName = uuidv4();
+      firebase
+        .storage()
+        .ref("Vents/" + fileName)
+        .put(file)
+        .then(async (snapshot) => {
+          var downloadURL = await firebase
+            .storage()
+            .ref("Vents/" + fileName)
+            .getDownloadURL();
+          resolve({ success: true, data: { link: downloadURL } });
+        })
+        .catch((err) => setIsImageWarningOpen(true, () => console.log(err)));
+    });
   }
 
   return (
@@ -67,8 +88,19 @@ const CreatePost = () => {
             value={content}
             onChange={({ target }) => setContent(target.value)}
           />
-          <input type="file" onChange={uploadFile} ref={inputEl} />
+          <input
+            type="file"
+            onChange={async (e) => {
+              const uploadState = await uploadFile();
+              if (uploadState.success) {
+                setFeatureImage(uploadState.data.link);
+              }
+              console.log("File uploaded!");
+            }}
+            ref={inputEl}
+          />
           <button onClick={handleSubmit}>Post!</button>
+          {featureImage}
         </div>
       </form>
     </div>
