@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import firebase from "../config/firebase";
 import "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
-import { async } from "regenerator-runtime";
 
 const CreatePost = () => {
   const [isImageWarningOpen, setIsImageWarningOpen] = useState(false);
@@ -26,27 +25,12 @@ const CreatePost = () => {
     console.log({
       title: title,
       content: content,
+      image: featureImage,
     });
 
     setTitle("");
     setContent("");
   };
-
-  // function uploadFile() {
-  //   var file = inputEl.current.files[0];
-  //   var fileName = uuidv4();
-  //   var storageRef = firebase
-  //     .storage()
-  //     .ref("Vents/" + fileName)
-  //     .put(file)
-  //     .then((snapshot) => {
-  //       var downloadURL = firebase
-  //         .storage()
-  //         .ref("Vents/" + fileName)
-  //         .getDownloadURL();
-  //       setFeatureImage(downloadURL);
-  //     });
-  // }
 
   function uploadFile() {
     return new Promise(async (resolve, reject) => {

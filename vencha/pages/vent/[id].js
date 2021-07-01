@@ -4,6 +4,7 @@ import Link from "next/link";
 const Vent = (props) => {
   return (
     <div>
+      <img style={{ maxHeight: "100px" }} src={props.featureImage} />
       <h2>{props.title}</h2>
       <p>{props.content}</p>
       <Link href="/">
@@ -22,11 +23,13 @@ export const getServerSideProps = async ({ query }) => {
     .then((result) => {
       content["title"] = result.data().title;
       content["content"] = result.data().content;
+      content["featureImage"] = result.data().featureImage;
     });
   return {
     props: {
       title: content.title,
       content: content.content,
+      featureImage: content.featureImage,
     },
   };
 };
