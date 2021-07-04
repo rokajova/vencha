@@ -51,6 +51,8 @@ const CreatePost = () => {
     });
   }
 
+  const sumbitCondition = title || content || featureImage;
+
   return (
     <div>
       <h2>Add Blog</h2>
@@ -83,7 +85,11 @@ const CreatePost = () => {
             }}
             ref={inputEl}
           />
-          <button onClick={handleSubmit}>Post!</button>
+          {sumbitCondition ? (
+            <button onClick={handleSubmit}>Post!</button>
+          ) : (
+            <button disabled>Post!</button>
+          )}
           {featureImage}
         </div>
       </form>
