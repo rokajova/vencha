@@ -29,7 +29,10 @@ const Home = () => {
       <h1>All posts are here: </h1>
       <ul>
         {blogs.map((blog) => (
-          <li key={blog.id}>
+          <li
+            key={blog.id}
+            style={{ border: "1px solid black", margin: "10px" }}
+          >
             <Link href="/vent/[id]" as={"/vent/" + blog.id}>
               <a itemProp="hello">{blog.title}</a>
             </Link>

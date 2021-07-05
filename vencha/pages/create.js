@@ -4,6 +4,7 @@ import "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
 const CreatePost = () => {
+  // warning will be used for file size limit
   const [isImageWarningOpen, setIsImageWarningOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
