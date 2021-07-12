@@ -6,12 +6,14 @@ import { v4 as uuidv4 } from "uuid";
 const CreatePost = () => {
   // warning will be used for file size limit
   const [isImageWarningOpen, setIsImageWarningOpen] = useState(false);
+  // required states that will be used in a post
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [featureImage, setFeatureImage] = useState("");
 
   const inputEl = useRef(null);
 
+  //  Adds the content to the database, resets the input fields to empty
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -33,6 +35,7 @@ const CreatePost = () => {
     setContent("");
   };
 
+  //  Adds the files to storage under a uuid in Vents folder, gets URL for added files to be stored in featureImage state
   function uploadFile() {
     return new Promise(async (resolve, reject) => {
       var file = inputEl.current.files[0];

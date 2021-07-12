@@ -3,9 +3,11 @@ import Head from "next/head";
 import firebase from "../config/firebase";
 import Link from "next/link";
 
+// I'm feeling sick, fuck this weather honestly
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
 
+  // Populates blogs array array with data from Vents collection in the db.
   useEffect(() => {
     firebase
       .firestore()
@@ -28,6 +30,7 @@ const Home = () => {
       <Link href="/create">Create</Link>
       <h1>All posts are here: </h1>
       <ul>
+        {/* prints out every element in populated array */}
         {blogs.map((blog) => (
           <li
             key={blog.id}

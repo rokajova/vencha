@@ -13,6 +13,8 @@ const Vent = (props) => {
     </div>
   );
 };
+
+// Setting the required props from firebase db to be used in return props
 export const getServerSideProps = async ({ query }) => {
   const content = {};
   await firebase
