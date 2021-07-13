@@ -32,6 +32,7 @@ const Home = () => {
     firebase
       .firestore()
       .collection("Vents")
+      .orderBy("createDate", "desc")
       .onSnapshot((snap) => {
         const blogs = snap.docs.map((doc) => ({
           // get the unique doc from firestore doc, this will be the post url
