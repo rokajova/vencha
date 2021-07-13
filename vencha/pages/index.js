@@ -4,6 +4,26 @@ import firebase from "../config/firebase";
 import Link from "next/link";
 
 // I'm feeling sick, fuck this weather honestly
+const timeStampToString = (ts) => {
+  const date = new Date(ts * 1000);
+  return (
+    date.getFullYear() +
+    "/" +
+    (date.getMonth() + 1) +
+    "/" +
+    date.getDate() +
+    " " +
+    (date.getHours() < 10 ? "0" : "") +
+    date.getHours() +
+    ":" +
+    (date.getMinutes() < 10 ? "0" : "") +
+    date.getMinutes() +
+    ":" +
+    (date.getSeconds() < 10 ? "0" : "") +
+    date.getSeconds()
+  );
+};
+
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
 
@@ -39,6 +59,10 @@ const Home = () => {
             <Link href="/vent/[id]" as={"/vent/" + blog.id}>
               <a itemProp="hello">{blog.title}</a>
             </Link>
+            <span>
+              Created:{" "}
+              <strong>{timeStampToString(blog.createDate.seconds)}</strong>
+            </span>
           </li>
         ))}
       </ul>
