@@ -44,7 +44,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <div className="content">
       <Head>
         <title>Vents</title>
       </Head>
