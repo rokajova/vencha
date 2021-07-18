@@ -45,11 +45,6 @@ const Home = () => {
 
   return (
     <div className="content">
-      <Head>
-        <title>Vents</title>
-      </Head>
-      <Link href="/create">Create</Link>
-      <h1>All posts are here: </h1>
       <ul>
         {/* prints out every element in populated array */}
         {blogs.map((blog) => (
