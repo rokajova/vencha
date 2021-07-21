@@ -44,21 +44,16 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <ul>
-        {/* prints out every element in populated array */}
-        {blogs.map((blog) => (
-          <div key={blog.id}>
-            <Link href="/vent/[id]" as={"/vent/" + blog.id}>
-              <a itemProp="hello">{blog.title}</a>
-            </Link>
-            <span>
-              Created:{" "}
-              <strong>{timeStampToString(blog.createDate.seconds)}</strong>
-            </span>
+    <div className={styles.container}>
+      {/* prints out every element in populated array */}
+      {blogs.map((blog) => (
+        <Link href="/vent/[id]" as={"/vent/" + blog.id}>
+          <div className={styles.post} key={blog.id}>
+            <img src={blog.featureImage} />
+            <a itemProp="hello">{blog.title}</a>
           </div>
-        ))}
-      </ul>
+        </Link>
+      ))}
     </div>
   );
 };
