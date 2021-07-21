@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Head from "next/head";
 import firebase from "../config/firebase";
 import Link from "next/link";
+import styles from "../styles/Main.module.css";
 
 // I'm feeling sick, fuck this weather honestly
 const timeStampToString = (ts) => {
@@ -44,14 +44,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="content">
+    <div>
       <ul>
         {/* prints out every element in populated array */}
         {blogs.map((blog) => (
-          <li
-            key={blog.id}
-            style={{ border: "1px solid black", margin: "10px" }}
-          >
+          <div key={blog.id}>
             <Link href="/vent/[id]" as={"/vent/" + blog.id}>
               <a itemProp="hello">{blog.title}</a>
             </Link>
@@ -59,7 +56,7 @@ const Home = () => {
               Created:{" "}
               <strong>{timeStampToString(blog.createDate.seconds)}</strong>
             </span>
-          </li>
+          </div>
         ))}
       </ul>
     </div>
