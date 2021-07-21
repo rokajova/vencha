@@ -51,6 +51,8 @@ const Home = () => {
           <div className={styles.post} key={blog.id}>
             <img src={blog.featureImage} />
             <a itemProp="hello">{blog.title}</a>
+            <p>{blog.content}</p>
+            <h3>{timeStampToString(blog.createDate.seconds)}</h3>
           </div>
         </Link>
       ))}
