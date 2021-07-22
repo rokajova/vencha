@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import firebase from "../config/firebase";
 import Link from "next/link";
 import styles from "../styles/Main.module.css";
+import Modal from "react-bootstrap/Modal";
 
 // I'm feeling sick, fuck this weather honestly
 const timeStampToString = (ts) => {
