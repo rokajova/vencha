@@ -29,16 +29,12 @@ const Home = () => {
   const [blogs, setBlogs] = useState([]);
   const [orderBy, setOrderBy] = useState("createDate");
 
-  function sortVents() {
-    console.log(orderBy);
-  }
-
   // Populates blogs array array with data from Vents collection in the db.
   useEffect(() => {
     firebase
       .firestore()
       .collection("Vents")
-      .orderBy("createDate", "desc")
+      .orderBy(orderBy, "desc")
       .onSnapshot((snap) => {
         const blogs = snap.docs.map((doc) => ({
           // get the unique doc from firestore doc, this will be the post url
@@ -54,8 +50,8 @@ const Home = () => {
       {/* prints out every element in populated array */}
       <div>
         Sort by:
-        <button onClick={sortVents}>New</button>
-        <button onClick={sortVents}>Old</button>
+        <button onClick={() => setOrderBy("createDate")}>New</button>
+        <button onClick={() => setOrderBy("title")}>Old</button>
       </div>
       {blogs.map((blog) => (
         <Link href="/vent/[id]" as={"/vent/" + blog.id}>
