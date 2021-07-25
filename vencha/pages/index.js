@@ -27,6 +27,11 @@ const timeStampToString = (ts) => {
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
+  const [orderBy, setOrderBy] = useState("createDate");
+
+  function sortVents() {
+    console.log(orderBy);
+  }
 
   // Populates blogs array array with data from Vents collection in the db.
   useEffect(() => {
@@ -47,6 +52,11 @@ const Home = () => {
   return (
     <div className={styles.container}>
       {/* prints out every element in populated array */}
+      <div>
+        Sort by:
+        <button onClick={sortVents}>New</button>
+        <button onClick={sortVents}>Old</button>
+      </div>
       {blogs.map((blog) => (
         <Link href="/vent/[id]" as={"/vent/" + blog.id}>
           <div className={styles.post} key={blog.id}>
