@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import firebase from "../config/firebase";
 import Link from "next/link";
 import styles from "../styles/Main.module.css";
-import Modal from "react-bootstrap/Modal";
 
 // I'm feeling sick, fuck this weather honestly
 const timeStampToString = (ts) => {
@@ -34,7 +33,7 @@ const Home = () => {
     firebase
       .firestore()
       .collection("Vents")
-      .orderBy(orderBy, "desc")
+      .orderBy(orderBy, "asc")
       .onSnapshot((snap) => {
         const blogs = snap.docs.map((doc) => ({
           // get the unique doc from firestore doc, this will be the post url
