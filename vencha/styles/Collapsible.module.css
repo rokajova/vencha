@@ -1,0 +1,23 @@
+.toggle {
+  background: #5ca7ca;
+  border: unset;
+  cursor: pointer;
+  font: unset;
+  padding: 0.3rem;
+  border-radius: 5px;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.content {
+  border: 1px solid #b3b3b3;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 5rem;
+}
+
+.contentParent {
+  height: 0px;
+  overflow: hidden;
+  transition: ease 0.4s;
+}
