@@ -6,16 +6,20 @@ function Collapsible(props) {
 
   const parentRef = useRef();
 
-  if (parentRef.current) {
-    console.log(parentRef.current.scrollHeight);
-  }
-
   return (
     <div className={styles.collapsible}>
       <button className={styles.toggle} onClick={() => setIsOpen(!isOpen)}>
         {props.label}
       </button>
-      <div className={styles.contentParent} ref={parentRef}>
+      <div
+        className={styles.contentParent}
+        ref={parentRef}
+        style={
+          isOpen
+            ? { height: parentRef.current.scrollHeight + "px" }
+            : { height: "0px" }
+        }
+      >
         <div className={styles.content}>{props.children}</div>
       </div>
     </div>
