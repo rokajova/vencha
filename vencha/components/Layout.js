@@ -1,5 +1,4 @@
 import Navbar from "./Navbar";
-import Modal from "./Modal";
 
 const Layout = ({ children }) => {
   return (

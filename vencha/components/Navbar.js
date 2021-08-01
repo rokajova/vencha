@@ -1,7 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
+import React, { useState } from "react";
 
 const Navbar = () => {
+  const [show, setShow] = useState(false);
+
+  const closeModalHandler = () => setShow(false);
   return (
     <nav>
       <Link href="/create">
