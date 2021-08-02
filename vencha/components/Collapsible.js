@@ -8,9 +8,7 @@ function Collapsible(props) {
 
   return (
     <div className={styles.collapsible}>
-      <button className={styles.toggle} onClick={() => setIsOpen(!isOpen)}>
-        {props.label}
-      </button>
+      <a onClick={() => setIsOpen(!isOpen)}>Click me</a>
       <div
         className={styles.contentParent}
         ref={parentRef}
@@ -20,7 +18,11 @@ function Collapsible(props) {
             : { height: "0px" }
         }
       >
-        <div className={styles.content}>{props.children}</div>
+        <div className={styles.content}>
+          <form>
+            <input type="text" />
+          </form>
+        </div>
       </div>
     </div>
   );

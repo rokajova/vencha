@@ -7,10 +7,12 @@ body {
 }
 a {
   color: #333;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 nav {
-  margin: 10px auto 80px;
+  margin: 10px auto 8px;
   padding: 10px 0;
   display: flex;
   justify-content: center;
