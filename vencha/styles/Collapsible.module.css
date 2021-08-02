@@ -1,12 +1,18 @@
-.toggle {
+.toggleBtn {
   background: #5ca7ca;
   border: unset;
   cursor: pointer;
   font: unset;
-  padding: 0.3rem;
+  padding: 0.2rem;
   border-radius: 5px;
   color: #ffffff;
-  margin-bottom: 0.5rem;
+  transition: ease 0.4s;
+}
+
+.toggleBtn:hover {
+  background: #ffffff;
+  color: #5ca7ca;
+  transition: ease 0.4s;
 }
 
 .content {

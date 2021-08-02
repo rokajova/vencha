@@ -8,7 +8,9 @@ function Collapsible(props) {
 
   return (
     <div className={styles.collapsible}>
-      <a onClick={() => setIsOpen(!isOpen)}>Click me</a>
+      <button className={styles.toggleBtn} onClick={() => setIsOpen(!isOpen)}>
+        CREATE
+      </button>
       <div
         className={styles.contentParent}
         ref={parentRef}
