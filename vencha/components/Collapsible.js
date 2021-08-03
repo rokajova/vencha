@@ -4,21 +4,16 @@ import "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import styles from "../styles/Collapsible.module.css";
 
-function Collapsible(props) {
-  // state for collapsible managment
+const Collapsible = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // warning will be used for file size limit
-  const [isImageWarningOpen, setIsImageWarningOpen] = useState(false);
-  // required states that will be used in a post
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [featureImage, setFeatureImage] = useState("");
-  // used for collapsible height calculation
-  const parentRef = useRef();
-  // used for ???
-  const inputEl = useRef();
 
-  //  Adds the content to the database, resets the input fields to empty
+  const inputEl = useRef(null);
+  const parentRef = useRef();
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -61,11 +56,10 @@ function Collapsible(props) {
     });
   }
 
-  // condition under which I can submit the post
   const sumbitCondition = title || content || featureImage;
 
   return (
-    <div>
+    <div className={styles.collapsible}>
       <button className={styles.toggleBtn} onClick={() => setIsOpen(!isOpen)}>
         CREATE
       </button>
@@ -80,45 +74,38 @@ function Collapsible(props) {
       >
         <div className={styles.content}>
           <form>
-            <div>
-              <input
-                placeholder="Title..."
-                type="text"
-                value={title}
-                onChange={(target) => setTitle(target.value)}
-              />
-            </div>
-            <div>
-              <textarea
-                placeholder="Vent..."
-                value={content}
-                onChange={(target) => {
-                  setContent(target.value);
-                }}
-              />
-            </div>
-            <div>
-              <input
-                type="file"
-                onChange={async (e) => {
-                  const uploadState = await uploadFile();
-                  if (uploadState.success) {
-                    setFeatureImage(uploadState.data.link);
-                  }
-                  console.log("File uploaded!");
-                }}
-                ref={inputEl}
-              />
-            </div>
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={({ target }) => setTitle(target.value)}
+            />
+            <textarea
+              value={content}
+              onChange={({ target }) => setContent(target.value)}
+            />
+            <input
+              type="file"
+              onChange={async (e) => {
+                const uploadState = await uploadFile();
+                if (uploadState.success) {
+                  setFeatureImage(uploadState.data.link);
+                }
+                console.log("File uploaded!");
+              }}
+              ref={inputEl}
+            />
             {sumbitCondition ? (
               <button onClick={handleSubmit}>Post!</button>
             ) : (
               <button disabled>Post!</button>
             )}
+            {featureImage}
           </form>
+          <button onClick={handleSubmit}>Submit</button>
         </div>
       </div>
     </div>
   );
-}
+};
 export default Collapsible;
