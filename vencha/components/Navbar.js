@@ -5,7 +5,9 @@ import Collapsible from "./Collapsible";
 const Navbar = () => {
   return (
     <nav>
-      <Collapsible />
+      <Link href="/create">
+        <a>CREATE</a>
+      </Link>
     </nav>
   );
 };
