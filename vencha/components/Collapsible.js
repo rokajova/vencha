@@ -102,7 +102,6 @@ const Collapsible = () => {
             )}
             {featureImage}
           </form>
-          <button onClick={handleSubmit}>Submit</button>
         </div>
       </div>
     </div>

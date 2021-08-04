@@ -57,48 +57,7 @@ const CreatePost = () => {
 
   const sumbitCondition = title || content || featureImage;
 
-  return (
-    <div>
-      <h2>Add Blog</h2>
-      <form>
-        <div>
-          Title
-          <br />
-          <input
-            type="text"
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-          />
-        </div>
-
-        <div>
-          Content
-          <br />
-          <textarea
-            value={content}
-            onChange={({ target }) => setContent(target.value)}
-          />
-          <input
-            type="file"
-            onChange={async (e) => {
-              const uploadState = await uploadFile();
-              if (uploadState.success) {
-                setFeatureImage(uploadState.data.link);
-              }
-              console.log("File uploaded!");
-            }}
-            ref={inputEl}
-          />
-          {sumbitCondition ? (
-            <button onClick={handleSubmit}>Post!</button>
-          ) : (
-            <button disabled>Post!</button>
-          )}
-          {featureImage}
-        </div>
-      </form>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default CreatePost;

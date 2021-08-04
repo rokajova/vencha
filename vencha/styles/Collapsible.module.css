@@ -1,3 +1,7 @@
+.collapsible {
+  border: 3px solid red;
+}
+
 .toggleBtn {
   background: #5ca7ca;
   border: unset;
@@ -16,13 +20,13 @@
 }
 
 .content {
-  border: 1px solid #b3b3b3;
-  padding: 0.5rem;
-  border-radius: 5px;
-  margin-bottom: 1rem;
+  /* padding: 0.5rem; */
+  /* border-radius: 5px; */
+  /* margin-bottom: 1rem; */
 }
 
 .contentParent {
-  overflow: hidden;
+  /* overflow: hidden; */
   transition: ease 0.4s;
+  border: 1px solid red;
 }
