@@ -51,6 +51,7 @@ const Home = () => {
         Sort by:
         <button onClick={() => setOrderBy("createDate")}>New</button>
         <button onClick={() => setOrderBy("title")}>Old</button>
+        <button onClick={() => console.log(blogs)}>Posts</button>
       </div>
       {blogs.map((blog) => (
         <Link href="/vent/[id]" as={"/vent/" + blog.id}>
