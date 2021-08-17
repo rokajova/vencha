@@ -3,7 +3,6 @@ import firebase from "../config/firebase";
 import Link from "next/link";
 import styles from "../styles/Main.module.css";
 
-// I'm feeling sick, fuck this weather honestly
 const timeStampToString = (ts) => {
   const date = new Date(ts * 1000);
   return (

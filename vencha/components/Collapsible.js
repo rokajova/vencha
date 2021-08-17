@@ -83,10 +83,14 @@ const Collapsible = () => {
               value={title}
               onChange={({ target }) => setTitle(target.value)}
             />
-            <textarea
+            <br />
+            <input
+              type="text"
+              placeholder="Content"
               value={content}
               onChange={({ target }) => setContent(target.value)}
             />
+            <br />
             <input
               type="file"
               onChange={async (e) => {
@@ -98,6 +102,7 @@ const Collapsible = () => {
               }}
               ref={inputEl}
             />
+            <br />
             {sumbitCondition ? (
               <button onClick={handleSubmit}>Post!</button>
             ) : (
