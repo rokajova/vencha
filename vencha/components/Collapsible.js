@@ -37,6 +37,7 @@ const Collapsible = () => {
     setTitle("");
     setContent("");
     setFeatureImage("");
+    setIsOpen(false);
   };
 
   //  Adds the files to storage under a uuid in Vents folder, gets URL for added files to be stored in featureImage state
@@ -59,7 +60,7 @@ const Collapsible = () => {
     });
   }
 
-  const sumbitCondition = title || content || featureImage;
+  const sumbitCondition = content.length > 10 || featureImage;
 
   return (
     <div className={styles.collapsible}>
@@ -103,12 +104,12 @@ const Collapsible = () => {
               ref={inputEl}
             />
             <br />
+            {featureImage}
             {sumbitCondition ? (
               <button onClick={handleSubmit}>Post!</button>
             ) : (
               <button disabled>Post!</button>
             )}
-            {featureImage}
           </form>
         </div>
       </div>
