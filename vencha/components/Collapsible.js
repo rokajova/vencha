@@ -7,6 +7,8 @@ import styles from "../styles/Collapsible.module.css";
 // putting this on the backburner, need to create another website ASAP ,
 // Reminder: continue by creating a grid system for the collapsible create post component
 // AI art has got me hooked
+// UPDATE 2021/08/30
+// Still hooked on Ai art. And it sold! Putting this on the backburner once again
 const Collapsible = () => {
   const [isOpen, setIsOpen] = useState(false);
 
