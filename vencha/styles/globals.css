@@ -31,5 +31,9 @@ footer {
   padding: 30px 0;
   margin-top: 60px;
   color: #777;
+  color: linear-gradient(270deg, #1c6fb3 0%, #1e295c 100%);
+  color: linear-gradient(270deg, #1b65b9 0%, #1e295c 100%);
+  color: linear-gradient(270deg, #4f87b6 0%, #313750 100%);
+  color: linear-gradient(270deg, #466f9e 0%, #313750 100%);
   border-top: 1px solid #eaeaea;
 }
